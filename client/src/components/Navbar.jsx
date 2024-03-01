@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, NavLink } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
@@ -98,14 +98,22 @@ export default function Navbar() {
         )}
       </div>
       <div className="flex gap-32 justify-center mt-8 text-xl font-light">
-        <Link to="/services" className="hello">
+        <NavLink
+          to="/services"
+          className={` hello ${({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "border-blue-300 rounded-lg border h-fit"
+              : ""} `}
+        >
           Browse all
-        </Link>
-        <Link to="/dashboard" className="hello">
+        </NavLink>
+        <NavLink to="/dashboard" className="hello">
           Dashboard
-        </Link>
+        </NavLink>
         {isAuth == "false" || isTourist == true ? (
-          <Link
+          <NavLink
             onClick={() =>
               notifications.show({
                 title: "Login",
@@ -115,15 +123,15 @@ export default function Navbar() {
             className="hover:text-[#DDA15E] hello"
           >
             List service
-          </Link>
+          </NavLink>
         ) : (
-          <Link to="/createService" className="hover:text-[#DDA15E] hello">
+          <NavLink to="/createService" className="hover:text-[#DDA15E] hello">
             List service
-          </Link>
+          </NavLink>
         )}
-        <Link to="/contact" className="hover:text-[#DDA15E] hello">
+        <NavLink to="/contact" className="hover:text-[#DDA15E] hello">
           Contact
-        </Link>
+        </NavLink>
       </div>
     </div>
   );
